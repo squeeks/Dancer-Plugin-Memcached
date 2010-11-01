@@ -47,6 +47,24 @@ not.
 
 =head1 KEYWORDS
 
+=head2 memcached_check
+
+Will check for any route and return the page stored in memcached where available.
+
+=cut
+
+register memcached_check => sub
+{
+        before sub
+        {
+		my $set = plugin_setting;	
+		$cache->set_servers($set->{servers});
+
+                my $hit = $cache->get(request->{path_info});
+                return $hit if($hit);
+        };  
+};
+
 =head2 memcached_set($content, [$expiration])
 
 For any given content, set and return the content. Expiration time for the set 
