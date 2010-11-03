@@ -25,21 +25,20 @@ response_status_is  [GET => '/'], 200, 'response status is 200 for /';
 response_content_is [GET => '/'], "Test Module Loaded", 
 	"got expected response content for GET /";
 
-response_status_is  [GET => '/set_test/'.$time], 200, 'response status is 200 for /get_test';
+response_status_is  [GET => '/set_test/'.$time], 200, 'response status is 200 for /set_test';
 response_content_is [GET => '/set_test/'.$time], $time, 
 	"got expected response content for GET /set_test";
 
-response_status_is  [POST => '/get_test'], 200, 'response status is 200 for /get_test';
-response_content_is [POST => '/get_test', { data => '/set_test/'.$time }], $time, 
-	"got expected response content for POST /get_test";
+my $response = get_response [POST => '/get_test', {data => '/set_test/'.$time}];
+is $response->{status}, 200, 'response status is 200 for /get_test';
+is $response->{content}, $time, "got expected response content for POST /get_test";
 
-response_status_is  [POST => '/store_test'], 200, 'response status is 200 for /get_test';
-response_content_is [POST => '/store_test', { key => 'test', data => $time }], $time, 
-	"got expected response content for POST /store_test";
+$response = get_response [POST => '/store_test', { key => 'test', data => $time }];
+is $response->{status}, 200, 'response status is 200 for /store_test';
+is $response->{content}, $time, "got expected response content for POST /store_test";
 
-response_status_is  [GET => '/fetch_stored', { key => 'test' }], 200, 'response status is 200 for /';
-response_content_is [GET => '/fetch_stored', { key => 'test' }], $time, 
-	"got expected response content for GET /";
-
+$response = get_response [GET => '/fetch_stored', { key => 'test' }];
+is $response->{status}, 200, 'response status is 200 for /fetch_stored';
+is $response->{content}, $time, "got expected response content for GET /fetch_stored";
 
 done_testing;
