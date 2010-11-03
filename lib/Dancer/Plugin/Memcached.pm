@@ -24,7 +24,7 @@ that incur significant database calls.
 In your configuration, a list of servers with port numbers needs to be defined.
 
     plugins:
-        memcached:
+        Memcached:
 	    servers: 
 	        - "10.0.0.15:11211"
 		- "10.0.0.17:11211"
@@ -42,8 +42,8 @@ In your package:
     };
 
 This plugin will use the PATH_INFO environment variable to store as the key so
-routes that make use of "/foo/:bar" will be cached, but GET/POST variables will
-not.
+routes that make use of parameters in the form of "/foo/:bar" will be cached, 
+but GET/POST variables will not.
 
 =head1 KEYWORDS
 
