@@ -28,6 +28,11 @@ In your configuration, a list of servers with port numbers needs to be defined.
 	    servers: 
 	        - "10.0.0.15:11211"
 		- "10.0.0.17:11211"
+            default_timeout: 86400
+
+The C<default_timeout> specifies an fallback time for keys to expire from the
+cache. If this value is less than 60*60*24*30 (30 days), time is assumed to be
+seconds after the key was stored. If larger, it's considered an absolute Unix time.
 
 In your package:
 
@@ -78,7 +83,12 @@ register memcached_set => sub
 	my $set = plugin_setting;	
 	$cache->set_servers($set->{servers});
 
-	my $hit = $cache->set(request->{path_info}, $content);
+	my $hit = $cache->set(
+		request->{path_info}, 
+		$content, 
+		$expiration || $set->{default_timeout}
+	);
+
 	return $content if $hit;
 };
 
@@ -111,7 +121,12 @@ register memcached_store => sub
 	my $set = plugin_setting;	
 	$cache->set_servers($set->{servers});
 
-	my $hit = $cache->set($key, $content);
+	my $hit = $cache->set(
+		$key, 
+		$content, 
+		$expiration || $set->{default_timeout}
+	);
+
 	return $content if $hit;
 };
 
