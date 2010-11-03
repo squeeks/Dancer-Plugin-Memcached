@@ -7,7 +7,11 @@ use Test::More;
 
 unless ( $ENV{D_P_M_SERVER} )
 {
-    plan( skip_all => "Environment variable D_P_M_SERVER not set" );
+	plan(skip_all => "Environment variable D_P_M_SERVER not set");
+}
+else
+{
+	plan(tests => 3);
 }
 
 my $cache;
@@ -36,4 +40,3 @@ ok $cache_set, 'Stored data into cache';
 my $cache_get = $cache->get('Dancer-Plugin-Memcached:time');
 is $cache_get, $time, 'Stored value matches';
 
-done_testing;
