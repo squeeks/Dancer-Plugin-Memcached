@@ -79,7 +79,7 @@ can optionally be set.
 
 register memcached_set => sub
 {
-	my($content, $expiration) = @_;
+	my($self, $content, $expiration) = plugin_args(@_);
 	my $set = plugin_setting;	
 	$cache->set_servers($set->{servers});
 
@@ -100,7 +100,7 @@ Grab a specified key. Returns false if the key is not found.
 
 register memcached_get => sub
 {
-	my $key = shift;
+	my ($self, $key) = plugin_args(@_);
 
 	my $set = plugin_setting;
 	$cache->set_servers($set->{servers});
@@ -117,7 +117,7 @@ any key name.
 
 register memcached_store => sub
 {
-	my($key, $content, $expiration) = @_;
+	my($self, $key, $content, $expiration) = plugin_args(@_);
 	my $set = plugin_setting;	
 	$cache->set_servers($set->{servers});
 
