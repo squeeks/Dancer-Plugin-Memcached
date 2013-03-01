@@ -137,6 +137,10 @@ register_plugin;
 
 Squeeks, C<< <squeek at cpan.org> >>
 
+=head1 CONTRIBUTORS
+
+Zefram, C<< <zefram@fysh.org> >>
+
 =head1 BUGS
 
 Please report any bugs or feature requests to C<bug-dancer-plugin-memcached at rt.cpan.org>, or through
@@ -179,7 +183,7 @@ Dancer Web Framework - L<Dancer>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2010 Squeeks.
+Copyright 2013 Squeeks.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
