@@ -7,28 +7,28 @@ use Test::More;
 
 unless ( $ENV{D_P_M_SERVER} )
 {
-	plan(skip_all => "Environment variable D_P_M_SERVER not set");
+    plan(skip_all => "Environment variable D_P_M_SERVER not set");
 }
 else
 {
-	plan(tests => 3);
+    plan(tests => 3);
 }
 
 my $cache;
 eval
 {
-	require Cache::Memcached::Fast;
-	$cache = Cache::Memcached::Fast->new({
-		servers => [ $ENV{D_P_M_SERVER} ]
-	});
+    require Cache::Memcached::Fast;
+    $cache = Cache::Memcached::Fast->new({
+        servers => [ $ENV{D_P_M_SERVER} ]
+    });
 };
 
 if($@)
 {
-	require Cache::Memcached;
-	$cache = Cache::Memcached->new({
-		servers => [ $ENV{D_P_M_SERVER} ]
-	});
+    require Cache::Memcached;
+    $cache = Cache::Memcached->new({
+        servers => [ $ENV{D_P_M_SERVER} ]
+    });
 }
 
 use_ok 'Dancer::Plugin::Memcached';

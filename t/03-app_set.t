@@ -7,11 +7,11 @@ use Test::More import => ['!pass'];
 
 unless ( $ENV{D_P_M_SERVER} )
 {
-	plan(skip_all => "Environment variable D_P_M_SERVER not set");
+    plan(skip_all => "Environment variable D_P_M_SERVER not set");
 }
 else
 {
-	plan(tests => 12);
+    plan(tests => 12);
 }
 
 use lib './t';
@@ -28,7 +28,7 @@ my $response;
 route_exists        [GET => '/'], "GET / is handled";
 response_status_is  [GET => '/'], 200, 'response status is 200 for /';
 response_content_is [GET => '/'], "Test Module Loaded", 
-	"got expected response content for GET /";
+    "got expected response content for GET /";
 
 $response = dancer_response(GET => '/set_test/'.$time);
 is $response->{status}, 200, 'response status is 200 for /set_test';
